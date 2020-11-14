@@ -54,8 +54,8 @@ Features:
   const now = new Date();
   const tomorrow = gdate.advanceDateBy(1 * gdate.day, now);
 
-  gdate.isBefore(now, tomorrow) // false
-  gdate.isBefore(tomorrow, now) // true
+  gdate.isAfter(now, tomorrow) // false
+  gdate.isAfter(tomorrow, now) // true
 ```
 
 - `createYYYYMMDD`: converts the date into a string of the form `YYYY/MM/DD`
@@ -86,5 +86,5 @@ Features:
   const nowInMS = now.getTime();
   const tomInMS = now.getTime();
 
-  gdate.getRelativeDistance(gdate.hour, tomInMS - nowInMS) // 24
+  gdate.getApproximate(gdate.hour, tomInMS - nowInMS) // 24
 ```

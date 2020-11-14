@@ -1,6 +1,6 @@
 {
   "name": "gdate",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A lite extension to the native `Date` object",
   "main": "gdate.js",
   "scripts": {
