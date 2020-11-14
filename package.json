@@ -1,0 +1,31 @@
+{
+  "name": "gdate",
+  "version": "1.0.0",
+  "description": "A lite extension to the native `Date` object",
+  "main": "gdate.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GreyMatteOr/gdate.git"
+  },
+  "keywords": [
+    "Date",
+    "extension",
+    "time",
+    "units",
+    "add",
+    "subtract",
+    "logic"
+  ],
+  "author": "Matthew Lane",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GreyMatteOr/gdate/issues"
+  },
+  "homepage": "https://github.com/GreyMatteOr/gdate#readme",
+  "devDependencies": {
+    "jest": "^26.6.3"
+  }
+}
