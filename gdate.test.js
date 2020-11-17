@@ -5,80 +5,80 @@ describe('gdate', () => {
     let dayAfter = new Date(2020, 0, 2);
     let dayBefore = new Date(2019, 11, 31);
 
-  describe('advanceDateBy()', () => {
+  describe('advance( date ).by( unit )', () => {
 
     it('should return a Date object corresponding to the Date a given distance away from a reference Date', () => {
 
-      expect(gdate.advanceDateBy(gdate.day, date).getTime()).toEqual(dayAfter.getTime());
-      expect(gdate.advanceDateBy(-gdate.day, date).getTime()).toEqual(dayBefore.getTime());
+      expect(gdate.advance(date).by(gdate.day).getTime() ).toEqual( dayAfter.getTime() );
+      expect(gdate.advance(date).by(-gdate.day).getTime()).toEqual( dayBefore.getTime() );
     });
   });
 
-  describe('unitsBetween()', () => {
+  describe('get( units ).between( ref1, ref2 )', () => {
 
     it('should return the number of given units that are between 2 given Dates', () => {
 
-      expect(gdate.unitsBetween(gdate.day, dayBefore, date)).toEqual(1);
-      expect(gdate.unitsBetween(gdate.day, dayBefore, dayAfter)).toEqual(2);
-      expect(gdate.unitsBetween(gdate.day, date, date)).toEqual(0);
+      expect( gdate.get( gdate.day ).between(dayBefore, date) ).toEqual(1);
+      expect( gdate.get( gdate.day ).between(dayBefore, dayAfter) ).toEqual(2);
+      expect( gdate.get( gdate.day ).between(date, date) ).toEqual(0);
 
-      let oneMinuteAfter = gdate.advanceDateBy(gdate.minute, date);
+      let oneMinuteAfter = gdate.advance( date ).by( gdate.minute );
 
-      expect(gdate.unitsBetween(gdate.day, date, oneMinuteAfter)).toEqual(0);
-      expect(gdate.unitsBetween(gdate.hour, date, oneMinuteAfter)).toEqual(0);
-      expect(gdate.unitsBetween(gdate.minute, date, oneMinuteAfter)).toEqual(1);
-      expect(gdate.unitsBetween(gdate.second, date, oneMinuteAfter)).toEqual(60);
+      expect( gdate.get( gdate.day ).between(date, oneMinuteAfter) ).toEqual(1/1440);
+      expect( gdate.get( gdate.hour ).between(date, oneMinuteAfter) ).toEqual(1/60);
+      expect( gdate.get( gdate.minute ).between(date, oneMinuteAfter) ).toEqual(1);
+      expect( gdate.get( gdate.second ).between(date, oneMinuteAfter) ).toEqual(60);
 
     });
   });
 
-  describe('isBetween()', () => {
+  describe('is( date ).between( ref1, ref2 )', () => {
 
     it('should return `true` if a date falls between 2 dates (inclusive)', () => {
 
-      expect(gdate.isBetween(dayBefore, date, dayAfter)).toEqual(true);
-      expect(gdate.isBetween(dayBefore, dayBefore, dayAfter)).toEqual(true);
-      expect(gdate.isBetween(dayBefore, dayAfter, dayAfter)).toEqual(true);
+      expect(gdate.is(date).between(dayBefore, dayAfter)).toEqual(true);
+      expect(gdate.is(dayBefore).between(dayBefore, dayAfter)).toEqual(true);
+      expect(gdate.is(dayAfter).between(dayBefore, dayAfter)).toEqual(true);
     });
 
     it('should return `false` if a date falls between 2 dates (inclusive)', () => {
       let oneMSBeforeYesterday = new Date( dayBefore.getTime() - 1);
       let oneMSAfterTomorrow = new Date ( dayAfter.getTime() + 1);
 
-      expect(gdate.isBetween(dayBefore, oneMSBeforeYesterday, dayAfter)).toEqual(false);
-      expect(gdate.isBetween(dayBefore, oneMSAfterTomorrow, dayAfter)).toEqual(false);
+      expect(gdate.is(oneMSBeforeYesterday).between(dayBefore, dayAfter)).toEqual(false);
+      expect(gdate.is(oneMSAfterTomorrow).between(dayBefore, dayAfter)).toEqual(false);
     });
   });
 
-  describe('isBefore()', () => {
+  describe('is( date ).before( ref )', () => {
 
     it('should return `true` if a Date falls before a reference date', () => {
 
-      expect(gdate.isBefore(dayBefore, date)).toEqual(true);
-      expect(gdate.isBefore(date, dayAfter)).toEqual(true);
+      expect(gdate.is( dayBefore ).before( date )).toEqual(true);
+      expect(gdate.is( date ).before( dayAfter )).toEqual(true);
     });
 
     it('should return `false` if a Date doesn\'t come before it', () => {
 
-      expect(gdate.isBefore(dayAfter, date)).toEqual(false);
-      expect(gdate.isBefore(date, dayBefore)).toEqual(false);
-      expect(gdate.isBefore(date, date)).toEqual(false);
+      expect(gdate.is( dayAfter ).before( date )).toEqual(false);
+      expect(gdate.is( date ).before( dayBefore )).toEqual(false);
+      expect(gdate.is( date ).before( date )).toEqual(false);
     });
   });
 
-  describe('isAfter()', () => {
+  describe('is( date ).after( ref )', () => {
 
     it('should return `true` if a Date falls after a reference date', () => {
 
-      expect(gdate.isAfter(date, dayBefore)).toEqual(true);
-      expect(gdate.isAfter(dayAfter, date)).toEqual(true);
+      expect(gdate.is( date ).after( dayBefore )).toEqual(true);
+      expect(gdate.is( dayAfter ).after( date )).toEqual(true);
     });
 
     it('should return `false` if a Date doesn\'t come after it', () => {
 
-      expect(gdate.isAfter(date, dayAfter)).toEqual(false);
-      expect(gdate.isAfter(dayBefore, date)).toEqual(false);
-      expect(gdate.isAfter(date, date)).toEqual(false);
+      expect(gdate.is( date ).after( dayAfter )).toEqual(false);
+      expect(gdate.is( dayBefore ).after( date )).toEqual(false);
+      expect(gdate.is( date ).after( date )).toEqual(false);
     });
   });
 

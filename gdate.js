@@ -20,25 +20,48 @@ class DatePlus {
     this.ascendingNames = this.ascendingUnitsAndNames.map(unit => unit[1])
   }
 
-  advanceDateBy(distance, date = new Date() ) {
-    return new Date(date.getTime() + distance)
+  advance( date = new Date() ) {
+    return {
+      by: (distance) => {
+        return new Date(date.getTime() + distance)
+      }
+    }
   }
 
-  unitsBetween(distance, date1, date2 = new Date()) {
-    let mSeconds = Math.abs(date2.getTime() - date1.getTime());
-    return Math.floor(mSeconds / distance);
+  get( unit ) {
+    return {
+      between: ( date1, date2 = new Date() ) => {
+        let distance = Math.abs(date2.getTime() - date1.getTime());
+        return distance / unit;
+      }
+    }
   }
 
-  isBetween(beg, test, end) {
-    return beg.getTime() <= test.getTime() && test.getTime() <= end.getTime();
+  getWhole( unit ) {
+    return {
+      between: ( date1, date2 = new Date() ) => {
+        let distance = Math.abs(date2.getTime() - date1.getTime());
+        return Math.floor(distance / unit);
+      }
+    }
   }
 
-  isBefore(test, reference) {
-    return test.getTime() < reference.getTime();
-  }
-
-  isAfter(test, reference) {
-    return test.getTime() > reference.getTime();
+  is( test ) {
+    return {
+      after: ( ref ) => {
+        return test.getTime() > ref.getTime();
+      },
+      before: ( ref ) => {
+        return test.getTime() < ref.getTime();
+      },
+      between: ( ref1, ref2 ) => {
+        let small = Math.min(ref1.getTime(), ref2.getTime());
+        let big = Math.max(ref1.getTime(), ref2.getTime());
+        let testDist = test.getTime() - small;
+        let bigDist = big - small;
+        return 0 <= testDist && testDist <= bigDist;
+      }
+    }
   }
 
   createYYYYMMDD(date) {
@@ -58,15 +81,11 @@ class DatePlus {
       let unit = this.ascendingUnits[i];
       let name = this.ascendingNames[i];
       if(mSeconds < limit) {
-        let amount = this.getApproximate(unit, mSeconds);
+        let amount = Math.floor(mSeconds / unit);
         return `${amount} ${name}${amount === 1 ? '' : 's'}`;
       }
     }
     return `${this.getApproximate(this.year, mSeconds)} years`;
-  }
-
-  getApproximate(unit, distance) {
-    return Math.floor(distance / unit);
   }
 }
 
