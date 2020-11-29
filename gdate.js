@@ -22,13 +22,13 @@ class DatePlus {
 
   advance( date = new Date() ) {
     return {
-      by: (distance) => {
+      by: ( distance = 0 ) => {
         return new Date(date.getTime() + distance)
       }
     }
   }
 
-  get( unit ) {
+  get( unit = 1 ) {
     return {
       between: ( date1, date2 = new Date() ) => {
         let distance = Math.abs(date2.getTime() - date1.getTime());
@@ -37,7 +37,7 @@ class DatePlus {
     }
   }
 
-  getWhole( unit ) {
+  getWhole( unit = 1 ) {
     return {
       between: ( date1, date2 = new Date() ) => {
         let distance = Math.abs(date2.getTime() - date1.getTime());
@@ -46,15 +46,15 @@ class DatePlus {
     }
   }
 
-  is( test ) {
+  is( test = new Date() ) {
     return {
-      after: ( ref ) => {
+      after: ( ref = new Date() ) => {
         return test.getTime() > ref.getTime();
       },
-      before: ( ref ) => {
+      before: ( ref = new Date() ) => {
         return test.getTime() < ref.getTime();
       },
-      between: ( ref1, ref2 ) => {
+      between: ( ref1, ref2 = new Date() ) => {
         let small = Math.min(ref1.getTime(), ref2.getTime());
         let big = Math.max(ref1.getTime(), ref2.getTime());
         let testDist = test.getTime() - small;
@@ -64,7 +64,7 @@ class DatePlus {
     }
   }
 
-  createYYYYMMDD(date) {
+  createYYYYMMDD(date = new Date() ) {
     let year = String(date.getFullYear());
     let month = String(date.getMonth() + 1);
     let day = String(date.getDate());
@@ -74,7 +74,7 @@ class DatePlus {
     return [year, month, day].join('/');
   }
 
-  getRelativeDistance(date1, date2 = new Date()) {
+  getRelativeDistance(date1, date2 = new Date() ) {
     let mSeconds = Math.abs(date1.getTime() - date2.getTime());
     for (let i = 0; i < this.ascendingUnits.length; i++) {
       let limit = this.ascendingUnits[i + 1]

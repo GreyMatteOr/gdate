@@ -1,6 +1,6 @@
 {
   "name": "gdate",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A lite extension to the native `Date` object",
   "main": "gdate.js",
   "scripts": {
@@ -24,7 +24,7 @@
   "bugs": {
     "url": "https://github.com/GreyMatteOr/gdate/issues"
   },
-  "homepage": "https://github.com/GreyMatteOr/gdate#readme",
+  "homepage": "https://github.com/GreyMatteOr/gdate",
   "devDependencies": {
     "jest": "^26.6.3"
   }
