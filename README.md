@@ -1,8 +1,8 @@
 # GDATE, Mate!
 
-`GDate` (pronounced g'date, if you like) is a light-weight extension to the native Date object.  Date has a surprising amount of functionality built in, but equally surprising is the functionality it's lacking. (seriously, checkout the code I wrote.... it's nothing mind-blowing, and feels so intuitive). The biggest barriers to using javascripts `Date` are un-intuitive time measurement and easy date-math (like getting a date 5 days from now or checking if a time falls in a certain range).
+`GDate` (pronounced g'date, if you like) is a light-weight extension to the native `Date` object.  `Date` has a surprising amount of functionality built in, but equally surprising is the functionality it's lacking. (seriously, checkout the code I wrote.... it's nothing mind-blowing, and feels so intuitive). The biggest barriers to using JavaScript's `Date` are un-intuitive time measurement and a lack of easy date-math functionality (like getting a date 5 days from now or checking if a time falls in a certain range).
 
-Gdate makes these much easier by adding some nice layers of abstraction and syntactic sugar, so now you don't need to know how many milliseconds are in a week to get a date 7 days from now!
+GDate makes these much easier by adding some nice layers of abstraction and syntactic sugar, so now you don't need to know how many milliseconds are in a week to get a date 7 days from now!
 
 `GDate` was written as an extension to it that you can import into whatever project you like as easily as possible.
 It is tested (see the linked github), and open-source? still in development? If anyone would like easy open-source credits to put on a resumé, or have some ideas how to make the package more valuable or useful feel welcome to add an issue!
@@ -24,11 +24,11 @@ Import it into one of your ES5 files with `const gdate = require('gdate')`. Impo
   - `month`: these are set at 30 days for estimation
   - `year`: equals 365d
 
-Each of these store the equivalent amount of milliseconds as a number (which is what `Date` uses under the hood). You can use them like this:
+Each of these stores the equivalent amount of milliseconds as a number (which is what `Date` uses under the hood). You can use them like this:
 
 ```JavaScript
 gdate.second // 1000
-gdate.day // 60000
+gdate.day // 8640000
 ```
 
 Or, if you're doing a lot of time math, you can use destructuring to make them easier use (this is what will be used for all of the following examples) :
@@ -39,7 +39,7 @@ Or, if you're doing a lot of time math, you can use destructuring to make them e
  console.log( minute ) // 60000
 ```
 
-- `advance( Date ).by( distance )`: Get new Date instances a set amount of time away. Positive values get future Dates, negative values get past Dates.
+- `advance( Date ).by( distance )`: Get new `Date` instances a set amount of time away. Positive values get future `Date`s, negative values get past `Date`s.
 
   ```JavaScript
 
@@ -73,7 +73,7 @@ If the `ref2` argument is omitted, it defaults to the current moment. If the `un
 
 If the `ref2` argument is omitted, it defaults to the current moment. If the `unit` argument is omitted, it defaults to milliseconds.
 
-- `is( Date ).between( ref1, ref2)`: returns `true` if a given Date is between two reference dates, inclusively and order agnostically. Otherwise, `false`
+- `is( Date ).between( ref1, ref2)`: returns `true` if a given `Date` is between two reference dates, inclusively and order agnostically. Otherwise, `false`
 
 ```JavaScript
   const now = new Date();
@@ -122,12 +122,12 @@ If the `ref` or the `Date` arguments are omitted, they default to the current mo
 
 If the `Date` argument is omitted, it defaults to the current moment.
 
-`getRelativeDistance( Date1, Date2 )`: Returns a string of the distance between 2 Dates in the largest whole unit of time (with correct pluralization). If 2 arguments are provided, order is agnostic. If the second argument is excluded, it creates a timestamp from the current moment. Great for Reddit-Style Time-stamps.
+`getRelativeDistance( Date1, Date2 )`: Returns a string of the distance between 2 `Date`s in the largest whole unit of time (with correct pluralization). If 2 arguments are provided, order is agnostic. If the second argument is excluded, it creates a timestamp from the current moment. Great for Reddit-Style Time-stamps.
 
 ```JavaScript
   const now = new Date();
   const tomorrow = gdate.advance( now ).by( 1 * day );
-  const threeYearsFromNow = gdate.advanceDateBy(1100 * year, now);
+  const threeYearsFromNow = gdate.advanceDateBy(1100 * day  , now);
 
   gdate.getRelativeDistance(now, tomorrow) // "1 day"
   gdate.getRelativeDistance(year) // "3 years"
